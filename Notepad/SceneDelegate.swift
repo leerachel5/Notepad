@@ -19,8 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = NotepadViewController()
+        
+        let navigationController = UINavigationController(rootViewController: NotepadViewController())
+        
+        navigationController.navigationBar.backgroundColor = UIColor(named: "NavigationBackground")
+        navigationController.navigationBar.titleTextAttributes =  [NSAttributedString.Key.foregroundColor : UIColor(named: "NavigationText") as Any]
+        
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
         self.window = window
     }
 
