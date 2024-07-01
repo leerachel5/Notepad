@@ -22,6 +22,7 @@ class NotepadViewController: UIViewController {
     
     private lazy var textAreaView: UITextView = {
         let textAreaView = UITextView()
+        textAreaView.font = .systemFont(ofSize: 20)
         textAreaView.translatesAutoresizingMaskIntoConstraints = false
         return textAreaView
     }()
