@@ -9,12 +9,16 @@ import UIKit
 import CoreData
 
 class NotepadViewController: UIViewController {
-    //MARK: - Variables
+    //MARK: - Global Properties
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var note: Note?
     
-    //MARK: - UI Views
+    var navigationTitleTextField: UITextField {
+        return navigationItem.titleView as! UITextField
+    }
+    
+    //MARK: - Subviews
     
     private lazy var safeAreaView: UIView = {
         let safeAreaView = UIView()
@@ -29,15 +33,17 @@ class NotepadViewController: UIViewController {
         return textAreaView
     }()
     
-    private lazy var navigationTitleField: UITextField = {
-        let navigationTitleField = UITextField()
-        navigationTitleField.placeholder = "Title"
-        navigationTitleField.font = .systemFont(ofSize: 20)
-        navigationTitleField.translatesAutoresizingMaskIntoConstraints = false
-        return navigationTitleField
+    private lazy var titleTextField: UITextField = {
+        let titleTextField = UITextField()
+        titleTextField.font = .preferredFont(forTextStyle: .title1)
+        titleTextField.textAlignment = .center
+        titleTextField.placeholder = "Title"
+        return titleTextField
     }()
     
-    private func constrainViews() {
+    //MARK: - Subview Constraints
+    
+    private func setupSubviewConstraints() {
         safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         safeAreaView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -61,15 +67,16 @@ class NotepadViewController: UIViewController {
         view.addSubview(safeAreaView)
         safeAreaView.addSubview(textAreaView)
         
-        /// View constraints
-        constrainViews()
-        
         /// Navigation bar properties
-        navigationItem.titleView = navigationTitleField
+        navigationItem.titleView = titleTextField
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePressed))
         
         /// Load initial note data
         loadNote()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setupSubviewConstraints()
     }
     
     //MARK: - UI Actions
@@ -79,7 +86,7 @@ class NotepadViewController: UIViewController {
         if note == nil { note = Note(context: context) }
 
         /// Update the context note with values from UI
-        note!.title = (navigationItem.titleView as! UITextField).text
+        note!.title = navigationTitleTextField.text
         note!.body = textAreaView.text
         
         /// Save note to persistentContainer
@@ -106,9 +113,8 @@ class NotepadViewController: UIViewController {
         /// Reload UI with new note entity
         if let safeNote = note {
             textAreaView.text = safeNote.body
-            (navigationItem.titleView as! UITextField).text = safeNote.title
+            navigationTitleTextField.text = safeNote.title
         }
     }
     
 }
-
