@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class NotepadViewController: UIViewController {
     //MARK: - Variables
     
-    static let safeAreaInsets: UIEdgeInsets = .zero
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var note: Note?
     
     //MARK: - UI Views
     
@@ -56,6 +58,50 @@ class NotepadViewController: UIViewController {
         
         /// Navigation bar properties
         navigationItem.title = "Notepad"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePressed))
+        
+        /// Load initial note data
+        loadNote()
     }
+    
+    //MARK: - UI Actions
+    
+    @objc private func savePressed() {
+        /// Create note in context if it doesn't already exist
+        if note == nil { note = Note(context: context) }
+
+        /// Update the context note with values from UI
+        note!.title = navigationItem.title
+        note!.body = textAreaView.text
+        
+        /// Save note to persistentContainer
+        saveNote()
+    }
+    
+    //MARK: - Data Manipulation Methods
+    func saveNote() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context, \(error)")
+        }
+    }
+    
+    func loadNote(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
+        do {
+            note = try context.fetch(request).first
+            note?.title = "Notepad"
+            
+        } catch {
+            print("Error loading context, \(error)")
+        }
+        
+        /// Reload UI with new note entity
+        if let safeNote = note {
+            textAreaView.text = safeNote.body
+            navigationItem.title = safeNote.title
+        }
+    }
+    
 }
 
