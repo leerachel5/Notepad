@@ -29,6 +29,14 @@ class NotepadViewController: UIViewController {
         return textAreaView
     }()
     
+    private lazy var navigationTitleField: UITextField = {
+        let navigationTitleField = UITextField()
+        navigationTitleField.placeholder = "Title"
+        navigationTitleField.font = .systemFont(ofSize: 20)
+        navigationTitleField.translatesAutoresizingMaskIntoConstraints = false
+        return navigationTitleField
+    }()
+    
     private func constrainViews() {
         safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -57,7 +65,7 @@ class NotepadViewController: UIViewController {
         constrainViews()
         
         /// Navigation bar properties
-        navigationItem.title = "Notepad"
+        navigationItem.titleView = navigationTitleField
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePressed))
         
         /// Load initial note data
@@ -71,7 +79,7 @@ class NotepadViewController: UIViewController {
         if note == nil { note = Note(context: context) }
 
         /// Update the context note with values from UI
-        note!.title = navigationItem.title
+        note!.title = (navigationItem.titleView as! UITextField).text
         note!.body = textAreaView.text
         
         /// Save note to persistentContainer
@@ -90,7 +98,6 @@ class NotepadViewController: UIViewController {
     func loadNote(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
         do {
             note = try context.fetch(request).first
-            note?.title = "Notepad"
             
         } catch {
             print("Error loading context, \(error)")
@@ -99,7 +106,7 @@ class NotepadViewController: UIViewController {
         /// Reload UI with new note entity
         if let safeNote = note {
             textAreaView.text = safeNote.body
-            navigationItem.title = safeNote.title
+            (navigationItem.titleView as! UITextField).text = safeNote.title
         }
     }
     
