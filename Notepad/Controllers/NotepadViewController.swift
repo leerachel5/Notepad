@@ -13,9 +13,7 @@ class NotepadViewController: UIViewController {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    private var note: Note?
-    
-    var noteTitle: String!
+    var note: Note?
     
     private var navigationTitleTextField: UITextField {
         return navigationItem.titleView as! UITextField
@@ -107,6 +105,7 @@ class NotepadViewController: UIViewController {
     
     private func loadNote(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
         do {
+            request.predicate = NSPredicate(format: "title MATCHES %@", note!.title!)
             note = try context.fetch(request).first
             
         } catch {

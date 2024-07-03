@@ -13,7 +13,7 @@ class NotesListViewController: UIViewController {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var titles: [String] = []
+    var notes: [Note] = []
     
     //MARK: - Subviews
     
@@ -87,15 +87,15 @@ class NotesListViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { action in
             /// Create new Note object, save to context, and reload tableView data
             if let field = textField {
-                self.titles.append(field.text!)
                 
                 let note = Note(context: self.context)
                 note.title = field.text
                 note.body = ""
                 
+                self.notes.append(note)
+                
                 self.saveNotes()
             }
-            self.tableView.reloadData()
         }
         
         alert.addAction(cancelAction)
@@ -118,18 +118,20 @@ class NotesListViewController: UIViewController {
         } catch {
             print("Error saving context, \(error)")
         }
+        
+        /// Reload tableView with new notes
+        tableView.reloadData()
     }
     
     private func loadNotes(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
         do {
-            let notes = try context.fetch(request)
-            titles = notes.map { $0.title! }
+            notes = try context.fetch(request)
             
         } catch {
             print("Error loading context, \(error)")
         }
         
-        /// Reload tableView with fetched note titles
+        /// Reload tableView with fetched notes
         tableView.reloadData()
     }
 }
@@ -139,12 +141,12 @@ class NotesListViewController: UIViewController {
 extension NotesListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { titles.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { notes.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteListCell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = titles[indexPath.row]
+        cell.textLabel?.text = notes[indexPath.row].title
         
         return cell
     }
@@ -156,8 +158,9 @@ extension NotesListViewController: UITableViewDataSource {
 
 extension NotesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        /// Navigate to NotepadViewController when cell is selected
         let notepadViewController = NotepadViewController()
-        notepadViewController.noteTitle = titles[indexPath.row]
+        notepadViewController.note = notes[indexPath.row]
         self.navigationController?.pushViewController(notepadViewController, animated: true)
     }
 }

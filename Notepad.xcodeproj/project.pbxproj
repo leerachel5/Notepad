@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		EBA935FF2C34F437007667A4 /* NotesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA935FE2C34F437007667A4 /* NotesListViewController.swift */; };
+		EBA936042C35218D007667A4 /* Notepad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA942C327E7000A933AB /* Notepad.xcdatamodeld */; };
 		EBB8BA8C2C327E7000A933AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8B2C327E7000A933AB /* AppDelegate.swift */; };
 		EBB8BA8E2C327E7000A933AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8D2C327E7000A933AB /* SceneDelegate.swift */; };
 		EBB8BA902C327E7000A933AB /* NotepadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8F2C327E7000A933AB /* NotepadViewController.swift */; };
-		EBB8BA962C327E7000A933AB /* Notepad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA942C327E7000A933AB /* Notepad.xcdatamodeld */; };
 		EBB8BA982C327E7100A933AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBB8BA972C327E7100A933AB /* Assets.xcassets */; };
 		EBB8BA9B2C327E7100A933AB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = EBB8BA9A2C327E7100A933AB /* Base */; };
 /* End PBXBuildFile section */
@@ -168,7 +168,7 @@
 				EBB8BA8C2C327E7000A933AB /* AppDelegate.swift in Sources */,
 				EBA935FF2C34F437007667A4 /* NotesListViewController.swift in Sources */,
 				EBB8BA8E2C327E7000A933AB /* SceneDelegate.swift in Sources */,
-				EBB8BA962C327E7000A933AB /* Notepad.xcdatamodeld in Sources */,
+				EBA936042C35218D007667A4 /* Notepad.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
