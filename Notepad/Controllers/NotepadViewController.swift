@@ -82,7 +82,7 @@ class NotepadViewController: UIViewController {
         setupSubviewConstraints()
     }
     
-    //MARK: - UI Actions
+    //MARK: - UI Interactions
     
     @objc private func savePressed() {
         /// Create note in context if it doesn't already exist

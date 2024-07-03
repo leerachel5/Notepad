@@ -61,8 +61,49 @@ class NotesListViewController: UIViewController {
         view.addSubview(safeAreaView)
         safeAreaView.addSubview(tableView)
         
+        /// Setup navigationBar properties
+        navigationItem.title = "Notes"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
+        
         /// Load initial note data
         loadNotes()
+    }
+    
+    //MARK: - UI Interactions
+    @objc private func addPressed() {
+        /// Create UIAlertVC
+        let alert = UIAlertController(title: "Add new note", message: "", preferredStyle: .alert)
+        
+        /// Embed UITextField in UIAlertVC
+        var textField: UITextField?
+        
+        alert.addTextField { field in
+            field.placeholder = "Note title"
+            textField = field
+        }
+        
+        /// Create `Cancel` and `Confirm`actions, then add to UIAlertVC
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { action in
+            /// Create new Note object, save to context, and reload tableView data
+            if let field = textField {
+                self.titles.append(field.text!)
+                
+                let note = Note(context: self.context)
+                note.title = field.text
+                note.body = ""
+                
+                self.saveNotes()
+            }
+            self.tableView.reloadData()
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(confirmAction)
+        
+        
+        /// Present UIAlertVC
+        present(alert, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
