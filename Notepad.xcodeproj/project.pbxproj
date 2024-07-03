@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EBA935FF2C34F437007667A4 /* NotesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA935FE2C34F437007667A4 /* NotesListViewController.swift */; };
 		EBB8BA8C2C327E7000A933AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8B2C327E7000A933AB /* AppDelegate.swift */; };
 		EBB8BA8E2C327E7000A933AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8D2C327E7000A933AB /* SceneDelegate.swift */; };
 		EBB8BA902C327E7000A933AB /* NotepadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB8BA8F2C327E7000A933AB /* NotepadViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EBA935FE2C34F437007667A4 /* NotesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesListViewController.swift; sourceTree = "<group>"; };
 		EBB8BA882C327E7000A933AB /* Notepad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notepad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBB8BA8B2C327E7000A933AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBB8BA8D2C327E7000A933AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		EBB8BAA22C32B4A800A933AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EBA935FE2C34F437007667A4 /* NotesListViewController.swift */,
 				EBB8BA8F2C327E7000A933AB /* NotepadViewController.swift */,
 			);
 			path = Controllers;
@@ -163,6 +166,7 @@
 			files = (
 				EBB8BA902C327E7000A933AB /* NotepadViewController.swift in Sources */,
 				EBB8BA8C2C327E7000A933AB /* AppDelegate.swift in Sources */,
+				EBA935FF2C34F437007667A4 /* NotesListViewController.swift in Sources */,
 				EBB8BA8E2C327E7000A933AB /* SceneDelegate.swift in Sources */,
 				EBB8BA962C327E7000A933AB /* Notepad.xcdatamodeld in Sources */,
 			);

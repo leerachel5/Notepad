@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let navigationController = UINavigationController(rootViewController: NotepadViewController())
+        let navigationController = UINavigationController(rootViewController: NotesListViewController())
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "NavigationText")!]

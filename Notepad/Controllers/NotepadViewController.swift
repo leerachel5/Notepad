@@ -11,10 +11,13 @@ import CoreData
 class NotepadViewController: UIViewController {
     //MARK: - Global Properties
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var note: Note?
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var navigationTitleTextField: UITextField {
+    private var note: Note?
+    
+    var noteTitle: String!
+    
+    private var navigationTitleTextField: UITextField {
         return navigationItem.titleView as! UITextField
     }
     
@@ -55,7 +58,7 @@ class NotepadViewController: UIViewController {
         textAreaView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor, constant: 0).isActive = true
     }
 
-    //MARK: - Lifecycle
+    //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +97,7 @@ class NotepadViewController: UIViewController {
     }
     
     //MARK: - Data Manipulation Methods
-    func saveNote() {
+    private func saveNote() {
         do {
             try context.save()
         } catch {
@@ -102,7 +105,7 @@ class NotepadViewController: UIViewController {
         }
     }
     
-    func loadNote(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
+    private func loadNote(with request: NSFetchRequest<Note> = Note.fetchRequest()) {
         do {
             note = try context.fetch(request).first
             
